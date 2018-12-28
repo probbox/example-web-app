@@ -1,0 +1,62 @@
+﻿
+
+on github
++ create repository 'example-web-app' with button
+
+ - navigate to a parent directory 
+>cd D:\CodeFactory\_PROJECTS
+
+ - clone the remote repository
+>git clone https://github.com/probbox/example-web-app
+
+ - navigate to local repo directory
+>cd example-web-app
+
+- identify
+>git config user.email "probbox@web.de"
+>git config user.name "probbox"
+
+ - check config
+>git config --list
+
+ - create a new local branch 'develop' and switch to it
+>git checkout -b develop
+
+ + create new file(s)
+
+ - add new files to index
+>git add *
+
+ + make changes to these files
+
+ - commit current changes
+git commit -a -m "Adds the example data model"
+
+ - check status
+>git status
+
+ - push new branch to server
+>git push origin develop
+
+--------------------------------------------
+
+ - navigate to local repo directory 
+>cd D:\CodeFactory\_PROJECTS\example-web-app
+
+ - show all existing branches, name of current is green
+>git branch
+
+ - switch to local dev branch
+>git checkout develop
+
+ - shows current branch, is it up to date, do I have local changes
+>git status
+
+ - get latest version from server
+>git fetch origin --prune
+
+ - get latest version from server and merge it with local changes
+>git pull
+
+
+
