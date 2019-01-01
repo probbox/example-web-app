@@ -1,0 +1,1309 @@
+﻿{
+  "swagger": "2.0",
+  "info": {
+    "version": "v1",
+    "title": "ExampleApp Web API",
+    "description": "RESTful API for ExampleApp.",
+    "termsOfService": "",
+    "contact": {
+      "name": "Probbox",
+      "email": "probox@web.de"
+    },
+    "x-audience": "company-internal"
+  },
+  "basePath": "/api",
+  "paths": {
+    "/tag": {
+      "get": {
+        "tags": [
+          "Tags"
+        ],
+        "summary": "Retrieves one result page of a Tags search",
+        "operationId": "ApiTagGet",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "TagIds",
+            "in": "query",
+            "description": "A string with one or several comma seperated tag ids ('f75d85bf-9f47-4d94-af63-f4f8579995ff,0dfced4a-3abf-4ea4-8161-7e7c3239153b') or null/empty",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "PageNumber",
+            "in": "query",
+            "description": "The page number starting with 1 for the first page",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "description": "The number of entities on a result page",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "SearchText",
+            "in": "query",
+            "description": "A string to query for or null/empty",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "OrderBy",
+            "in": "query",
+            "description": "A string containing one or more field names with optional sort direction (i.e. 'FieldName1 desc, FieldName2') or null/empty",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tags search performed",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Tag"
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or invalid search parameters",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Tags"
+        ],
+        "summary": "Creates a new Tag resource",
+        "operationId": "ApiTagPost",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "tag",
+            "in": "body",
+            "description": "A TagForCreation object containing all required properties",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/TagForCreation"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Tag created",
+            "schema": {
+              "$ref": "#/definitions/Tag"
+            }
+          },
+          "400": {
+            "description": "Missing or invalid Tag properties",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "422": {
+            "description": "The given values could not be processed",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/tag/{id}": {
+      "get": {
+        "tags": [
+          "Tags"
+        ],
+        "summary": "Retrieves a specific Tag resource by unique id",
+        "operationId": "ApiTagByIdGet",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique id of a Tag resource",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tag found",
+            "schema": {
+              "$ref": "#/definitions/Tag"
+            }
+          },
+          "404": {
+            "description": "No Tag found",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Tags"
+        ],
+        "summary": "Updates an existing Tag resource",
+        "operationId": "ApiTagByIdPut",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique id of a Tag resource",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "tag",
+            "in": "body",
+            "description": "A TagForUpdate object",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/TagForUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tag updated",
+            "schema": {
+              "$ref": "#/definitions/Tag"
+            }
+          },
+          "304": {
+            "description": "Tag not modified because the given data contains no changes"
+          },
+          "404": {
+            "description": "Tag to update not found",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Missing or invalid Tag properties",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "422": {
+            "description": "The given values could not be processed",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Tags"
+        ],
+        "summary": "Deletes an existing Tag resource",
+        "operationId": "ApiTagByIdDelete",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique id of a Tag resource",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Tag deleted"
+          },
+          "400": {
+            "description": "Missing or invalid Tag id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "404": {
+            "description": "Tag to delete not found",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "409": {
+            "description": "Tag cannot be deleted",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/article": {
+      "get": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Retrieves one result page of an Article search",
+        "operationId": "ApiArticleGet",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "States",
+            "in": "query",
+            "description": "A string with one or several comma seperated article state names ('draft,forreview,published') or null/empty",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "TagIds",
+            "in": "query",
+            "description": "A string with one or several comma seperated tag ids ('f75d85bf-9f47-4d94-af63-f4f8579995ff,0dfced4a-3abf-4ea4-8161-7e7c3239153b') or null/empty",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "CreatedBefore",
+            "in": "query",
+            "description": "A an optional date value ('2011-01-31') or null/empty",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "CreatedAfter",
+            "in": "query",
+            "description": "A an optional date value ('2011-01-31') or null/empty",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "LastModifiedBefore",
+            "in": "query",
+            "description": "A an optional date value ('2011-01-31') or null/empty",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "LastModifiedAfter",
+            "in": "query",
+            "description": "A an optional date value ('2011-01-31') or null/empty",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "PageNumber",
+            "in": "query",
+            "description": "The page number starting with 1 for the first page",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "description": "The number of entities on a result page",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "SearchText",
+            "in": "query",
+            "description": "A string to query for or null/empty",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "OrderBy",
+            "in": "query",
+            "description": "A string containing one or more field names with optional sort direction (i.e. 'FieldName1 desc, FieldName2') or null/empty",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Articles search performed",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Article"
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or invalid search parameters",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Creates a new Article resource",
+        "operationId": "ApiArticlePost",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "article",
+            "in": "body",
+            "description": "An ArticleForCreation object containing all required properties",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ArticleForCreation"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Article created",
+            "schema": {
+              "$ref": "#/definitions/Article"
+            }
+          },
+          "400": {
+            "description": "Missing or invalid Article properties",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "422": {
+            "description": "The given values could not be processed",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/article/{id}": {
+      "get": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Retrieves a specific Article resource by unique id",
+        "operationId": "ApiArticleByIdGet",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique id of an Article resource",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Article found",
+            "schema": {
+              "$ref": "#/definitions/Article"
+            }
+          },
+          "404": {
+            "description": "No Article found",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Updates an existing Article resource",
+        "operationId": "ApiArticleByIdPut",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique id of an Article resource",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "article",
+            "in": "body",
+            "description": "An ArticleForUpdate object",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ArticleForUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ArchiveEntry updated",
+            "schema": {
+              "$ref": "#/definitions/ArchiveEntry"
+            }
+          },
+          "304": {
+            "description": "Article not modified because the given data contains no changes"
+          },
+          "404": {
+            "description": "Article to update not found",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Missing or invalid Article properties",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "422": {
+            "description": "The given values could not be processed",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Deletes an existing Article resource",
+        "operationId": "ApiArticleByIdDelete",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique id of an Article resource",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Article deleted"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "404": {
+            "description": "Article to delete not found"
+          }
+        }
+      }
+    },
+    "/article/{articleId}/images/{imageId}": {
+      "get": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Retrieves a specific Image of an Article resource",
+        "operationId": "ApiArticleByArticleIdImagesByImageIdGet",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "articleId",
+            "in": "path",
+            "description": "The unique id of an Article resource",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "imageId",
+            "in": "path",
+            "description": "The unique id of an embedded Image resource",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Image found",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
+          },
+          "404": {
+            "description": Article or Image not found",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Updates an existing Image of an Article resource",
+        "operationId": "ApiArticleByArticleIdImagesByImageIdPut",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "articleId",
+            "in": "path",
+            "description": "The Id of an Article resource",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "imageId",
+            "in": "path",
+            "description": "The unique id of an embedded Image resource",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "image",
+            "in": "body",
+            "description": "An ImageForUpdate object containing all required properties",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ImageForUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Image updated",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
+          },
+          "304": {
+            "description": "Image not modified because the given data contains no changes"
+          },
+          "404": {
+            "description": "Article or Image not found",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Missing or invalid Image properties",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "422": {
+            "description": "The given values could not be processed",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Deletes an existing Image of an Article resource",
+        "operationId": "ApiArticleByArticleIdImagesByImageIdDelete",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "articleId",
+            "in": "path",
+            "description": "The unique id of an Article resource",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "imageId",
+            "in": "path",
+            "description": "The unique id of an Image resource",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Image deleted"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "404": {
+            "description": Article or Image not found"
+          }
+        }
+      }
+    },
+    "/article/{articleId}/images": {
+      "post": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Creates a new Image for an Article resource",
+        "operationId": "ApiArticleByArticleIdImagesPost",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "articleId",
+            "in": "path",
+            "description": "The Id of an Article resource",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "image",
+            "in": "body",
+            "description": "An ImageForCreation object containing all required properties",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ImageForCreation"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Image created",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
+          },
+          "400": {
+            "description": "Missing or invalid Image properties",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "404": {
+            "description": Article not found",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "422": {
+            "description": "The given values could not be processed",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/article/{articleId}/tags/{tagId}": {
+      "put": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Adds an existing Tag to an Article resource",
+        "operationId": "ApiArticleByArticleIdTagsByTagIdPut",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "articleId",
+            "in": "path",
+            "description": "The Id of an Article resource",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "tagId",
+            "in": "path",
+            "description": "The unique id of a Tag resource",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tag added",
+            "schema": {
+              "$ref": "#/definitions/Tag"
+            }
+          },
+          "304": {
+            "description": "Tag already added"
+          },
+          "404": {
+            "description": Article or Tag not found",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "422": {
+            "description": "The given values could not be processed",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Removes an existing Tag from an Article resource",
+        "operationId": "ApiArticleByArticleIdTagsByTagIdDelete",
+        "consumes": [],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "articleId",
+            "in": "path",
+            "description": "The Id of an Article resource",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "tagId",
+            "in": "path",
+            "description": "The unique id of a Tag resource",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Tag removed"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "200": {
+            "description": "Tag removed"
+          },
+          "304": {
+            "description": "Tag not added"
+          },
+          "404": {
+            "description": Article or Tag not found"
+          },
+          "422": {
+            "description": "The given values could not be processed"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Tag": {
+      "description": "A resource representing a tag object",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The unique id",
+          "type": "string"
+        },
+        "title": {
+          "description": "The title",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "description": {
+          "description": "The description",
+          "type": "string"
+        },
+        "usageCount": {
+          "format": "int32",
+          "description": "The sum of all assignments",
+          "type": "integer"
+        },
+      }
+    },
+    "TagForCreation": {
+      "description": "A DTO class to create a Tag resource",
+      "required": [
+        "title"
+      ],
+      "type": "object",
+      "properties": {
+        "title": {
+          "description": "The title",
+          "maxLength": 50,
+          "minLength": 3,
+          "type": "string"
+        },
+        "description": {
+          "description": "The description",
+          "type": "string"
+        }
+      }
+    },
+    "TagForUpdate": {
+      "description": "A DTO class to update a Tag resource",
+      "required": [
+        "title"
+      ],
+      "type": "object",
+      "properties": {
+        "title": {
+          "description": "The title",
+          "maxLength": 50,
+          "minLength": 3,
+          "type": "string"
+        },
+        "description": {
+          "description": "The description",
+          "type": "string"
+        }
+      }
+    },
+    "Image": {
+      "description": "A resource representing an image object",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The unique id",
+          "type": "string"
+        },
+        "title": {
+          "description": "The title",
+          "maxLength": 50,
+          "type": "string"
+        },
+        "text": {
+          "description": "The text",
+          "type": "string"
+        },
+        "url": {
+          "description": "The unique url",
+          "type": "string"
+        },
+        "order": {
+          "format": "int32",
+          "description": "The order number",
+          "type": "integer"
+        }
+      }
+    },
+    "ImageForCreation": {
+      "description": "A DTO class to create an Image resource",
+      "required": [
+        "title",
+        "url"
+      ],
+      "type": "object",
+      "properties": {
+        "title": {
+          "description": "The title",
+          "maxLength": 50,
+          "minLength": 3,
+          "type": "string"
+        },
+        "text": {
+          "description": "The text",
+          "type": "string"
+        },
+        "url": {
+          "description": "The path",
+          "type": "string"
+        },
+        "order": {
+          "description": "The order number",
+          "type": "string"
+        }
+      }
+    },
+    "ImageForUpdate": {
+      "description": "A DTO class to update an Image resource",
+      "required": [
+        "title",
+        "url"
+      ],
+      "type": "object",
+      "properties": {
+        "title": {
+          "description": "The title",
+          "maxLength": 50,
+          "minLength": 3,
+          "type": "string"
+        },
+        "text": {
+          "description": "The text",
+          "type": "string"
+        },
+        "url": {
+          "description": "The path",
+          "type": "string"
+        },
+        "order": {
+          "description": "The order number",
+          "type": "string"
+        }
+      }
+    },
+    "MetaData": {
+      "description": "A resource representing the metadata of an aricle object",
+      "type": "object",
+      "properties": {
+        "version": {
+          "format": "int32",
+          "description": "The version number",
+          "type": "integer"
+        },
+        "createdAt": {
+          "format": "date-time",
+          "description": "The creation date",
+          "type": "string"
+        },
+        "createdBy": {
+          "description": "The creator's userName or id",
+          "type": "string"
+        },
+        "lastModifiedAt": {
+          "format": "date-time",
+          "description": "The date of last modification",
+          "type": "string"
+        },
+        "lastModifiedBy": {
+          "description": "The userName or id of the last modifier",
+          "type": "string"
+        }
+      }
+    },
+    "Article": {
+      "description": "A resource representing an Article object",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The unique id",
+          "type": "string"
+        },
+        "title": {
+          "description": "The title",
+          "type": "string"
+        },
+        "subTitle": {
+          "description": "The subtitle",
+          "type": "string"
+        },
+        "text": {
+          "description": "The text",
+          "type": "string"
+        },
+        "metaData": {
+          "$ref": "#/definitions/MetaData",
+          "description": "The metadata"
+        },
+        "images": {
+          "description": "The associated images",
+          "uniqueItems": true,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Image"
+          }
+        },
+        "tags": {
+          "description": "The associated tags",
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Tag"
+          }
+        },
+        "state": {
+          "format": "int32",
+          "description": "The article state id",
+          "type": "integer"
+        },
+        "stateName": {
+          "description": "The article state name",
+          "type": "string"
+        },
+      }
+    },
+    "ArticleForCreation": {
+      "description": "A DTO class to create an Article resource",
+      "required": [
+        "title"
+      ],
+      "type": "object",
+      "properties": {
+        "title": {
+          "description": "The title",
+          "maxLength": 150,
+          "type": "string"
+        },
+        "subTitle": {
+          "description": "The subtitle",
+          "type": "string"
+        },
+        "text": {
+          "description": "The text",
+          "type": "string"
+        },
+        "images": {
+          "description": "The images of the article",
+          "uniqueItems": true,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ImageCreation"
+          }
+        },
+        "tagIds": {
+          "description": "The comma-seperated ids of associated tags",
+          "type": "string"
+        },
+        "userId": {
+          "description": "The user id",
+          "type": "string"
+        }
+      }
+    },
+    "ArticleForUpdate": {
+      "description": "A DTO class to update an Article resource",
+      "required": [
+        "title"
+      ],
+      "type": "object",
+      "properties": {
+        "title": {
+          "description": "The title",
+          "maxLength": 150,
+          "type": "string"
+        },
+        "subTitle": {
+          "description": "The subtitle",
+          "type": "string"
+        },
+        "text": {
+          "description": "The text",
+          "type": "string"
+        },
+        "userId": {
+          "description": "The user id",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

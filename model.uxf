@@ -26,9 +26,9 @@ Article
     <id>UMLClass</id>
     <coordinates>
       <x>640</x>
-      <y>130</y>
+      <y>110</y>
       <w>210</w>
-      <h>120</h>
+      <h>150</h>
     </coordinates>
     <panel_attributes>&lt;&lt;Class&gt;&gt;
 MetaData
@@ -36,7 +36,9 @@ MetaData
 - id: String (GUID)
 - version: Int
 - createdAt: DateTime
-- createdBy: String (GUID)</panel_attributes>
+- createdBy: String (GUID)
+- lastModifiedAt: DateTime
+- lastModifiedBy: String (GUID)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -80,6 +82,7 @@ Image
 - title: String
 - text: String
 - url: String
+- order: Int
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -104,7 +107,7 @@ Tag
     <id>Relation</id>
     <coordinates>
       <x>530</x>
-      <y>140</y>
+      <y>120</y>
       <w>130</w>
       <h>50</h>
     </coordinates>
