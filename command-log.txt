@@ -1,4 +1,5 @@
 ﻿
+--- einmalig ------------------------------
 
 on github
 + create repository 'example-web-app' with button
@@ -30,15 +31,16 @@ on github
  + make changes to these files
 
  - commit current changes
-git commit -a -m "Adds the example data model"
+>git commit -a -m "Adds the example data model"
 
  - check status
 >git status
 
  - push new branch to server
->git push origin develop
+>git push -u origin develop	( -u -> master branch is deleted on server repo!!!)
 
---------------------------------------------
+
+--- immer -----------------------------------------
 
  - navigate to local repo directory 
 >cd D:\CodeFactory\_PROJECTS\example-web-app
@@ -55,8 +57,71 @@ git commit -a -m "Adds the example data model"
  - get latest version from server
 >git fetch origin --prune
 
- - get latest version from server and merge it with local changes
+ - get latest version from server
 >git pull
 
+---
 
+ - create a local feature branch from local dev branch and switch to it
+>git checkout -b api-spec develop
+
+ + create new directory 'api-specification' and a new file 'api-spec.json'
+
+ - add new files to index
+>git add *
+
+ - commit current changes
+>git commit -a -m "Adds the API specification"
+
+---
+
+ - switch to local dev branch
+>git checkout develop
+
+ - shows status of local dev branch
+>git status
+
+ -- if not up to date ---
+
+ - get latest version from server
+>git fetch origin --prune
+
+ - get latest version from server
+>git pull
+
+ - switch back to local feature branch
+>git checkout api-spec
+
+ - update local feature branch from dev
+>git rebase dev
+
+ -- else --
+
+ - switch back to local feature branch
+>git checkout api-spec
+
+ --  --
+
+ - check in feature branch
+>git push -u origin api-spec
+
+---
+
+on github
+merge feature branch 'api-spec' with develop branch
+delete remote feature branch
+
+---
+
+ - switch to local dev branch
+>git checkout develop
+
+ - delete local feature branch
+>git branch -D api-spec
+
+ - get latest version from server
+>git fetch origin --prune
+
+ - get latest version from server
+>git pull
 
