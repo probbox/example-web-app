@@ -1300,7 +1300,7 @@
           "type": "string"
         },
         "userId": {
-          "description": "The user id",
+          "description": "The user id", 
           "type": "string"
         }
       }
